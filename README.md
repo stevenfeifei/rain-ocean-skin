@@ -1,5 +1,7 @@
 # Rain ocean skin
 
+[English](README.md) | [中文](README.zh.md)
+
 A 16-second looping night-rain sea, rendered in Blender and used as the window
 background of DeepSeek Harness. The clip is plain H.264, so the skin needs no
 WebGL and almost no GPU.
