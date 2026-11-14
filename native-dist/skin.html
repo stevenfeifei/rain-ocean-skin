@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rain ocean</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <video id="ocean-video" src="./rain-loop-16s-720-v5.mp4" poster="./poster.jpg" autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback aria-hidden="true"></video>
+  <script>
+    const video = document.getElementById('ocean-video')
+    const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
+    let userPaused = false
+
+    function markReady() {
+      document.body.classList.add('ready')
+    }
+
+    video.addEventListener('loadeddata', markReady)
+    video.addEventListener('canplay', markReady)
+    video.addEventListener('playing', markReady)
+    video.addEventListener('error', () => {
+      document.body.classList.add('video-error')
+    })
+    video.play().catch(markReady)
+
+    // Stop decoding while the window is hidden or minimised.
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) video.pause()
+      else if (!userPaused) video.play().catch(() => {})
+    })
+    window.addEventListener('pagehide', () => video.pause())
+
+    window.addEventListener('message', (event) => {
+      if (event.source !== window.parent) return
+      const data = event.data
+      if (!data || data.type !== 'oc-set') return
+      if (Number.isFinite(data.speed)) {
+        video.playbackRate = clamp(data.speed / 100, 0.5, 1.5)
+      }
+      if (data.paused === true) {
+        userPaused = true
+        video.pause()
+      } else if (data.paused === false) {
+        userPaused = false
+        video.play().catch(() => {})
+      }
+    })
+
+    video.addEventListener('loadeddata', () => {
+      window.parent.postMessage({ type: 'oc-stat', mode: 'video', fps: 24, still: false }, '*')
+    })
+  </script>
+</body>
+</html>

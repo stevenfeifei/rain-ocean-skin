@@ -1,0 +1,7 @@
+{
+  "meta": {
+    "title": "Rain ocean · HD video skin",
+    "description": "A 1080p looping night-rain sea rendered in Blender as the window background: a lit buoy tower on the right, wet sea reflections and a subtle rain layer, played seamlessly in a transparent iframe. The wave button beside Settings adjusts playback speed, glass opacity and can switch the skin off; every change is saved. No WebGL required — it is a plain H.264 loop, so it costs almost no GPU and starts instantly.",
+    "detail": "docs/DETAIL.md"
+  }
+}

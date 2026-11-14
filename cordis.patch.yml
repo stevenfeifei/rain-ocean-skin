@@ -1,0 +1,6 @@
+# Bundle layer for the rain ocean skin. Installing this directory through the
+# plugin manager inserts the Host plugin that serves the looping video under
+# /rain-ocean, plus the matching browser module.
+- insert:
+    - id: rain-ocean-skin
+      name: '@local/dsh-rain-ocean-skin'
